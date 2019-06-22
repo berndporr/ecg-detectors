@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import scipy.stats as stats
 from hrv import HRV
+from ecgdetectors import Detectors
 
 path_gu_ecg_database = '../dataset_716'
 
@@ -21,26 +22,31 @@ sitting_error_rr_sd = []
 total_subjects = 25
 subject = []
 
-error = 12.5
-
 for i in range(total_subjects):
 #for i in range(3):
     print(i)
     sitting_class = Ecg(data_path, i, 'sitting')
+    sitting_class.filter_data()
     maths_class = Ecg(data_path, i, 'maths')
+    maths_class.filter_data()
+
+    detectors = Detectors(sitting_class.fs)
 
     if sitting_class.anno_cs_exists and maths_class.anno_cs_exists:
         subject.append(i)
 
-        hrv_class = HRV(250)
-        sitting_rr_sd.append(hrv_class.SDNN(sitting_class.anno_cs))
-        maths_rr_sd.append(hrv_class.SDNN(maths_class.anno_cs))
+        hrv_class = HRV(sitting_class.fs)
 
-        sitting_error_rr = hrv_class.add_rr_error(sitting_class.anno_cs, error)
-        sitting_error_rr_sd.append(hrv_class.SDNN(sitting_error_rr))
+        r_peaks = detectors.swt_detector(sitting_class.einthoven_II)
+        sitting_rr_sd.append(hrv_class.RMSSD(r_peaks))
+        r_peaks = detectors.swt_detector(maths_class.einthoven_II)
+        maths_rr_sd.append(hrv_class.RMSSD(r_peaks))
 
-        maths_error_rr = hrv_class.add_rr_error(maths_class.anno_cs, error)
-        maths_error_rr_sd.append(hrv_class.SDNN(maths_error_rr))
+        sitting_error_rr = detectors.two_average_detector(sitting_class.einthoven_II)
+        sitting_error_rr_sd.append(hrv_class.RMSSD(sitting_error_rr))
+
+        maths_error_rr = detectors.two_average_detector(maths_class.einthoven_II)
+        maths_error_rr_sd.append(hrv_class.RMSSD(maths_error_rr))
 
 
 subject = np.array(subject)
@@ -57,7 +63,7 @@ ax.set_xlabel('Subject')
 ax.set_title('HRV for sitting and maths test')
 ax.set_xticks(subject + width)
 ax.set_xticklabels(subject)
-ax.legend((rects1[0], rects2[0], rects3[0], rects4[0]), ('sitting', 'maths', 'sitting with error', 'math with error' ))
+ax.legend((rects1[0], rects2[0], rects3[0], rects4[0]), ('sitting (SWT)', 'maths (SWT)', 'sitting (AVG)', 'math (AVG)' ))
 
 plt.figure()
 
@@ -71,11 +77,11 @@ sd_maths_rr_sd = np.std(maths_rr_sd)
 
 plt.bar([0,1],[avg_sitting_rr_sd,avg_maths_rr_sd],yerr=[sd_sitting_rr_sd,sd_maths_rr_sd],align='center', alpha=0.5, ecolor='black', capsize=10)
 plt.ylim([0,100])
-plt.title("Without added error")
+plt.title("WAVELET")
 
 t,p = stats.ttest_rel(sitting_rr_sd,maths_rr_sd)
 
-print("No error: p=",p," that both distributions are equal.")
+print("WAVELET: p=",p," that both distributions are equal.")
 
 plt.figure()
 
@@ -89,10 +95,10 @@ sd_maths_error_rr_sd = np.std(maths_error_rr_sd)
 
 plt.bar([0,1],[avg_sitting_error_rr_sd,avg_maths_error_rr_sd],yerr=[sd_sitting_error_rr_sd,sd_maths_error_rr_sd],align='center', alpha=0.5, ecolor='black', capsize=10)
 plt.ylim([0,100])
-plt.title("With added error of +/-"+str(error)+" samples")
+plt.title("TWO AVG DETECTOR")
 
 t,p = stats.ttest_rel(sitting_error_rr_sd,maths_error_rr_sd)
 
-print("Error: p=",p," that both distributions are equal.")
+print("TWO AVG DETECTOR: p=",p," that both distributions are equal.")
 
 plt.show()
