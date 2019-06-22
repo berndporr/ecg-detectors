@@ -72,11 +72,12 @@ total_subjects = 25
 subject = []
 
 for i in range(total_subjects):
+#for i in range(2):
     print(i)
     sitting_class = Ecg(data_path, i, 'sitting')
-    # sitting_class.filter_data()
+    sitting_class.filter_data()
     maths_class = Ecg(data_path, i, 'maths')
-    # maths_class.filter_data()
+    maths_class.filter_data()
 
     if sitting_class.anno_cs_exists and maths_class.anno_cs_exists:
         subject.append(i)
@@ -167,11 +168,11 @@ plt.bar([0,1,2],[avg_maths_true_hf,avg_maths_error_hf,avg_maths_hf],yerr=[sd_mat
 plt.ylim([0,hflfmax])
 plt.title("(Math task) Ground truth vs avg det vs wavelet det")
 
-t,p = stats.mannwhitneyu(maths_true_hf,maths_error_hf)
-print("(Math task) Ground truth vs 2 avgerage det: p=",p," that both distributions are equal.")
+t,p = stats.ttest_rel(maths_true_hf,maths_error_hf)
+print("(Math task) Ground truth vs 2 avgerage det: p=",p)
 
-t,p = stats.mannwhitneyu(maths_true_hf,maths_hf)
-print("(Math task) Ground truth vs wavelet det: p=",p," that both distributions are equal.")
+t,p = stats.ttest_rel(maths_true_hf,maths_hf)
+print("(Math task) Ground truth vs wavelet det: p=",p)
 
 
 
