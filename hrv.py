@@ -183,7 +183,7 @@ class HRV:
         # now let's create function which approximates the hr(t) relationship
         self.hr_func = interp1d(self.t_hr_discrete, self.hr_discrete)
         # we take 1024 samples for a linear time array for hr(t)
-        nsamp = 10000
+        nsamp = 1000
         # linear time array for the heartrate
         self.t_hr_linear = np.linspace(self.t_hr_discrete[1],
                                        self.t_hr_discrete[len(self.t_hr_discrete)-2],
@@ -203,9 +203,9 @@ class HRV:
         # hf
         self.hf = 0
         for i in range(0,int(nsamp/2)):
-            if (self.f_hr_axis[i] > 0.04) and (self.f_hr_axis[i] < 0.15):
+            if (self.f_hr_axis[i] >= 0.04) and (self.f_hr_axis[i] <= 0.15):
                 self.lf = self.lf + self.f_hr[i]
-            if (self.f_hr_axis[i] > 0.15) and (self.f_hr_axis[i] < 0.4):
+            if (self.f_hr_axis[i] >= 0.15) and (self.f_hr_axis[i] <= 0.4):
                 self.hf = self.hf + self.f_hr[i]
         # hf
         return self.lf/self.hf
