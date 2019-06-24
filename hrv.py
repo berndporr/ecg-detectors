@@ -91,12 +91,15 @@ class HRV:
         return rr_std
 
 
-    def RMSSD(self, rr_samples):
+    def RMSSD(self, rr_samples, normalise = False):
 
         succ_diffs = self._succ_diffs(rr_samples)
         succ_diffs = succ_diffs*succ_diffs
 
         rms = np.sqrt(np.mean(succ_diffs))
+
+        if normalise:
+            rms = rms / np.mean(self._intervals(rr_samples))
 
         return rms
 
