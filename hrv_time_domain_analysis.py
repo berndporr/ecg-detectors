@@ -2,7 +2,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import scipy.stats as stats
 from hrv import HRV
-from ecgdetectors import Detectors
 
 path_gu_ecg_database = '../dataset_716'
 
