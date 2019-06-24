@@ -2,14 +2,22 @@
 
 These are Python scripts which calculate both
 timedomain and frequency domain HRV parameters.
-In particular the timedomain paramter here is
-normalised RMSSD and the frequency domain paramter
+In particular the timedomain parameter here is
+normalised RMSSD and the frequency domain parameter
 is LF/HF being the most popular ones.
 
-In order to run the script you need to down the open
-access database:
+In order to run the script you need to download the open
+access ECG database:
 
 http://researchdata.gla.ac.uk/716/
+
+which has sample precision R peak data, raw ECGs and
+video footage from the sessions.
+
+## Heartrate variability API
+
+`hrv.py` is an API which calculates all your favourite HRV
+parameters.
 
 ## ECG viewing
 
