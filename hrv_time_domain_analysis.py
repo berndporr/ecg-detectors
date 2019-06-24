@@ -28,8 +28,6 @@ for i in range(total_subjects):
     maths_class = Ecg(data_path, i, 'maths')
     maths_class.filter_data()
 
-    detectors = Detectors(sitting_class.fs)
-
     if sitting_class.anno_cs_exists and maths_class.anno_cs_exists:
         subject.append(i)
 
