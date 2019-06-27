@@ -6,6 +6,8 @@ In particular the timedomain parameter here is
 normalised RMSSD and the frequency domain parameter
 is LF/HF being the most popular ones.
 
+Join the discussion on twitter: https://twitter.com/BerndPorr/status/1142898436594982912
+
 In order to run the script you need to download the open
 access ECG database:
 
