@@ -1,3 +1,0 @@
-This is a minimalistic version of the original physionet one which
-can work with Python output and won't need the plotting library.
-

@@ -1,16 +1,19 @@
-# Heartrate variability (HRV) -- is it of any use? Discuss!
+# Heartrate variability -- is it of any use? Discuss!
 
 These are Python scripts which calculate both
-timedomain and frequency domain HRV parameters.
-In particular the timedomain parameter here is
+timedomain and frequency domain heartrate variability (HRV) parameters.
+
+The timedomain parameter here is
 normalised RMSSD and the frequency domain parameter
-is LF/HF being the most popular ones.
+is LF/HF.
 
 The scripts have been written to start a discussion
-if HRV is a reliable physiological quantity or not.
+if HRV is a reliable physiological quantity or not. Join the discussion on twitter:
 
-Join the discussion on twitter:
 https://twitter.com/BerndPorr/status/1142898436594982912
+
+We start from the (perhaps naive) assumption that a maths test stresses out subjects
+but sitting and doing nothing is relaxing.
 
 ## Prerequisites
 
@@ -24,7 +27,7 @@ video footage from the sessions. We just use the precise R peak data.
 
 ## ECG viewing
 
-To view the ECGs of a single subject run:
+To view the ECG of a single subject run:
 
 ```
 plot_ecg.py <subject number>
@@ -47,3 +50,4 @@ on a chair:
 ```
 hrv_frequency_domain_analysis.py
 ```
+
