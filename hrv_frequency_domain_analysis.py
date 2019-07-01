@@ -58,8 +58,6 @@ ax.legend((rects1[0], rects2[0]), ('sitting', 'math' ))
 
 plt.figure()
 
-# now let's do stats with no error
-
 avg_sitting_true_hf = np.average(sitting_true_hf)
 sd_sitting_true_hf = np.std(sitting_true_hf)
 
@@ -71,7 +69,7 @@ plt.ylim([0,hflfmax])
 ax.set_ylabel('LF/HF ratio')
 plt.title("Sitting vs math")
 
-t,p = stats.ttest_rel(sitting_true_hf,maths_true_hf)
+t,p = stats.ttest_ind(sitting_true_hf,maths_true_hf,equal_var=False)
 print("T-test between sitting and math test: p=",p)
 
 
