@@ -17,6 +17,10 @@ but sitting and doing nothing is relaxing.
 
 ## Prerequisites
 
+Install the python package:
+
+https://pypi.org/project/py-ecg-detectors/
+
 In order to run the script you need to download the open
 access ECG database:
 
