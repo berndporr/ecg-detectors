@@ -1,6 +1,6 @@
 # Heartrate variability -- is it of any use? Discuss!
 
-These are Python scripts which calculate both
+These are Python scripts which benchmark both
 timedomain and frequency domain heartrate variability (HRV) parameters.
 
 The timedomain parameter here is
