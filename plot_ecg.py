@@ -2,17 +2,11 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
-import pathlib
 from hrv import HRV
 from ecgdetectors import Detectors
 import scipy.stats as stats
-
-path_gu_ecg_database = '../dataset_716'
-data_path = path_gu_ecg_database + r'/experiment_data'
-
 import sys
-sys.path.insert(0, path_gu_ecg_database + r'/example_code')
-from ecg_gla_database import Ecg
+from ecg_gudb_database import GUDb
 
 # for plotting max hflf ratio
 hflfmax = 10
@@ -23,7 +17,7 @@ subj = 1
 if len(sys.argv) > 1:
     subj = int(sys.argv[1])
 
-sitting_class = Ecg(data_path, subj, 'sitting')
+sitting_class = GUDb(subj, 'sitting')
 hrv_class = HRV(sitting_class.fs)
 lfhf = hrv_class.fAnalysis(sitting_class.anno_cs)
 print("Subject sitting: lf/hf=",lfhf)
@@ -46,7 +40,7 @@ plt.xlabel("f/Hz")
 plt.ylabel("power")
 
 
-sitting_class = Ecg(data_path, subj, 'maths')
+sitting_class = GUDb(subj, 'maths')
 hrv_class = HRV(sitting_class.fs)
 lfhf = hrv_class.fAnalysis(sitting_class.anno_cs)
 print("Subject doing math test: lf/hf=",lfhf)

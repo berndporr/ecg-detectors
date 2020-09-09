@@ -4,15 +4,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import scipy.stats as stats
 from hrv import HRV
-
-path_gu_ecg_database = '../dataset_716'
-
+from ecg_gudb_database import GUDb
 import sys
-sys.path.insert(0, path_gu_ecg_database + r'/example_code')
-from ecg_gla_database import Ecg
-
-
-data_path = path_gu_ecg_database + r'/experiment_data'
 
 maths_true = []
 sitting_true = []
@@ -25,9 +18,9 @@ do_normalise = True
 for i in range(total_subjects):
 #for i in range(2):
     print(i)
-    sitting_class = Ecg(data_path, i, 'sitting')
+    sitting_class = GUDb(i, 'sitting')
     sitting_class.filter_data()
-    maths_class = Ecg(data_path, i, 'maths')
+    maths_class = GUDb(i, 'maths')
     maths_class.filter_data()
 
     if sitting_class.anno_cs_exists and maths_class.anno_cs_exists:

@@ -4,14 +4,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pathlib
 from hrv import HRV
+from ecgdetectors import Detectors
 import scipy.stats as stats
-
-path_gu_ecg_database = '../dataset_716'
-data_path = path_gu_ecg_database + r'/experiment_data'
-
 import sys
-sys.path.insert(0, path_gu_ecg_database + r'/example_code')
-from ecg_gla_database import Ecg
+from ecg_gudb_database import GUDb
+
 
 # for plotting max hflf ratio
 hflfmax = 10
@@ -28,9 +25,9 @@ subject = []
 for i in range(total_subjects):
 #for i in range(2):
     print(i)
-    sitting_class = Ecg(data_path, i, 'sitting')
+    sitting_class = GUDb(i, 'sitting')
     sitting_class.filter_data()
-    maths_class = Ecg(data_path, i, 'maths')
+    maths_class = GUDb(i, 'maths')
     maths_class.filter_data()
         
     if sitting_class.anno_cs_exists and maths_class.anno_cs_exists:

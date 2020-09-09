@@ -17,16 +17,15 @@ but sitting and doing nothing is relaxing.
 
 ## Prerequisites
 
-Install the python package:
+Install the python packages:
 
-https://pypi.org/project/py-ecg-detectors/
+```
+pip3 install py-ecg-detectors
+pip3 install ecg_gudb_database
+```
 
-In order to run the script you need to download the open
-access ECG database:
-
-http://researchdata.gla.ac.uk/716/
-
-which has sample precision R peak data, raw ECGs and
+which is an R peak detector library and a labelled ECG dataset which
+has sample precision R peak data, raw ECGs and
 video footage from the sessions. We just use the precise R peak data.
 
 ## ECG viewing
